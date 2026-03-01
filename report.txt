@@ -1,0 +1,17 @@
+kert25 (15):
+      Добавил example.py
+      Изменил example.py
+      Добавил файл feature_file.py
+      Добавил .gitignore файл
+      Добавил cfg.py с версией 1.0.0
+      Изменил cfg.py
+      Изменил cfg.py
+      cfg.py 1.0.0
+      cfg.py 2.0.0
+      Разрешён конфликт
+      Добавил feature.py
+      Добавил блаблабла
+      Добавил блеблебле
+      Настройка GitHub actions для python
+      Merge branch 'feature'
+
