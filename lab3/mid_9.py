@@ -8,7 +8,7 @@ class FileManager:
         self.filename = filename
 
     def write_file(self, content):
-        """Создает файл и записывает в него текст (перезаписывая существующий)."""
+        """Создает файл и записывает в него текст"""
         try:
             with open(self.filename, "w", encoding="utf-8") as f:
                 f.write(content)
