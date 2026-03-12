@@ -2,47 +2,29 @@ import os
 
 
 class FileManager:
-    """Класс для базовых операций с текстовыми файлами."""
-
     def __init__(self, filename):
         self.filename = filename
 
     def write_file(self, content):
-        """Создает файл и записывает в него текст"""
-        try:
-            with open(self.filename, "w", encoding="utf-8") as f:
-                f.write(content)
-            print(f"Файл '{self.filename}' успешно записан.")
-        except Exception as e:
-            print(f"Ошибка при записи: {e}")
+        with open(self.filename, "w", encoding="utf-8") as f:
+            f.write(content)
+        print(f"Файл {self.filename} перезаписан.")
 
     def read_file(self):
-        """Читает содержимое файла и возвращает его."""
-        if not os.path.exists(self.filename):
-            return f"Ошибка: Файл '{self.filename}' не найден."
-
-        try:
+        if os.path.exists(self.filename):
             with open(self.filename, "r", encoding="utf-8") as f:
                 return f.read()
-        except Exception as e:
-            return f"Ошибка при чтении: {e}"
+        return "Файл не найден."
 
     def append_to_file(self, content):
-        """Добавляет текст в конец существующего файла."""
-        try:
-            with open(self.filename, "a", encoding="utf-8") as f:
-                f.write("\n" + content)
-            print(f"Данные добавлены в '{self.filename}'.")
-        except Exception as e:
-            print(f"Ошибка при добавлении: {e}")
+        with open(self.filename, "a", encoding="utf-8") as f:
+            f.write(content + "\n")
+        print(f"Данные добавлены в {self.filename}.")
 
 
-if __name__ == "__main__":
-    my_file = FileManager("lab_work.txt")
+file = FileManager("test.txt")
+file.write_file("Первая строка.")
+file.append_to_file("Вторая строка.")
 
-    my_file.write_file("Первая строка лабораторной работы.")
-
-    my_file.append_to_file("Вторая строка добавлена методом append.")
-
-    print("\nСодержимое файла:")
-    print(my_file.read_file())
+print("\nСодержимое файла:")
+print(file.read_file())
