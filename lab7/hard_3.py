@@ -15,17 +15,17 @@ class Product(Base):
     price = Column(Integer)
 
 
-def create_alembic_config():
-    cfg = Config()
-    cfg.set_main_option("script_location", "alembic")
-    cfg.set_main_option("sqlalchemy.url", "sqlite:///lab7_migrations.db")
-    return cfg
-
-
 if os.path.exists("alembic"):
     shutil.rmtree("alembic")
+if os.path.exists("alembic.ini"):
+    os.remove("alembic.ini")
 
-cfg = create_alembic_config()
+with open("alembic.ini", "w") as f:
+    f.write("[alembic]\n")
+    f.write("script_location = alembic\n")
+    f.write("sqlalchemy.url = sqlite:///lab7_migrations.db\n")
+
+cfg = Config("alembic.ini")
 command.init(cfg, "alembic")
 
 engine = create_engine("sqlite:///lab7_migrations.db")
@@ -36,3 +36,5 @@ print("Таблица products создана с колонками: id, name, p
 
 if os.path.exists("alembic"):
     shutil.rmtree("alembic")
+if os.path.exists("alembic.ini"):
+    os.remove("alembic.ini")
