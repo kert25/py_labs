@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, request
+from flask import Flask, request, redirect, render_template_string
 
 app = Flask(__name__)
 
@@ -7,29 +7,51 @@ tasks = [
     {"id": 2, "title": "Выучить Python", "done": False},
 ]
 
+HTML = """
+<!DOCTYPE html>
+<html>
+<head><title>Список задач</title></head>
+<body>
+    <h1>Список задач</h1>
+    <form method="post" action="/add">
+        <input type="text" name="title" placeholder="Новая задача" required>
+        <button type="submit">Добавить</button>
+    </form>
+    <ul>
+        {% for task in tasks %}
+            <li>
+                {{ task.title }}
+                <a href="/delete/{{ task.id }}">[удалить]</a>
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
+"""
 
-@app.route("/tasks", methods=["GET"])
-def get_tasks():
-    return jsonify(tasks)
+
+@app.route("/")
+def index():
+    return render_template_string(HTML, tasks=tasks)
 
 
-@app.route("/tasks", methods=["POST"])
+@app.route("/add", methods=["POST"])
 def add_task():
-    data = request.get_json()
-    task = {
-        "id": len(tasks) + 1,
-        "title": data["title"],
-        "done": False
-    }
-    tasks.append(task)
-    return jsonify(task), 201
+    title = request.form.get("title")
+    if title:
+        tasks.append({
+            "id": len(tasks) + 1,
+            "title": title,
+            "done": False
+        })
+    return redirect("/")
 
 
-@app.route("/tasks/<int:task_id>", methods=["DELETE"])
+@app.route("/delete/<int:task_id>")
 def delete_task(task_id):
     global tasks
     tasks = [t for t in tasks if t["id"] != task_id]
-    return jsonify({"result": True})
+    return redirect("/")
 
 
 app.run(debug=True)
