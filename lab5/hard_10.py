@@ -15,7 +15,8 @@ def send_message():
 
 root = tk.Tk()
 root.title("Локальный чат")
-root.geometry("400x500")
+root.geometry("500x600")
+root.minsize(400, 300)
 
 chat_area = tk.Text(
     root, wrap=tk.WORD, state=tk.DISABLED,
