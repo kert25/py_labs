@@ -10,7 +10,7 @@ HTML = """
 <head><title>FastAPI</title></head>
 <body>
     <h1>Введите число</h1>
-    <form method="get" action="/square">
+    <form method="get" action="/">
         <input type="number" name="number" placeholder="Число">
         <button type="submit">Посчитать квадрат</button>
     </form>
