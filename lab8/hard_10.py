@@ -26,6 +26,9 @@ class ServiceLayer:
     def get_adults(self):
         return [u for u in self.data.get_all_users() if u["age"] >= 18]
 
+    def get_all_users(self):
+        return self.data.get_all_users()
+
 
 data = DataLayer()
 service = ServiceLayer(data)
