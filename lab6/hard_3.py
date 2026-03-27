@@ -11,7 +11,7 @@ users = {
 }
 
 
-def get_current_user(credentials: HTTPBasicCredentials = Depends(security)):
+def authenticate(credentials: HTTPBasicCredentials = Depends(security)):
     correct_password = users.get(credentials.username)
     if correct_password is None or correct_password != credentials.password:
         raise HTTPException(
@@ -22,14 +22,9 @@ def get_current_user(credentials: HTTPBasicCredentials = Depends(security)):
     return credentials.username
 
 
-@app.get("/")
-def public():
-    return {"message": "Публичная страница"}
-
-
-@app.get("/secret")
-def secret(user: str = Depends(get_current_user)):
-    return {"message": f"Привет, {user}! Это секретная страница"}
+@app.get("/login")
+def login(user: str = Depends(authenticate)):
+    return {"message": f"Авторизация успешна! Привет, {user}!"}
 
 
 uvicorn.run(app, host="127.0.0.1", port=8000)
