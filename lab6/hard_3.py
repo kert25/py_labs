@@ -22,6 +22,11 @@ def authenticate(credentials: HTTPBasicCredentials = Depends(security)):
     return credentials.username
 
 
+@app.get("/")
+def root():
+    return {"message": "Перейдите на /login для авторизации"}
+
+
 @app.get("/login")
 def login(user: str = Depends(authenticate)):
     return {"message": f"Авторизация успешна! Привет, {user}!"}
