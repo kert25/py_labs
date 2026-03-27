@@ -19,3 +19,6 @@ Thumbs.db
 
 # Methodology
 *.pdf
+
+# Databases
+*.db
